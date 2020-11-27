@@ -29,3 +29,7 @@ Route::post("user","UserController@store")->name("user.guardar");
 Route::put("user/{user}","UserController@update")->name("user.update");
 Route::delete("user/{user}","UserController@destroy")->name("user.destroy");
 Route::get("usuario","userController@myfuncion")->name("user.myfuncion");
+
+Route::resource("curso","CursoController");
+
+Route::get("curso_miaccion/{parametro}","CursoController@miaccion");

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
-        echo "estoy en index";
+        echo "estoy en index desde controller";
     }
     public function store(){
         return "estoy en el post";
