@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view("welcome");
+    return view("layouts.layout_principal");
 });// acceder a otra ruta
 //Route::resource("user","UserController");// gamma de rutas
           /* GET|HEAD  | user             | user.index   | App\Http\Controllers\UserController@index   | web        |
@@ -31,5 +31,4 @@ Route::delete("user/{user}","UserController@destroy")->name("user.destroy");
 Route::get("usuario","userController@myfuncion")->name("user.myfuncion");
 
 Route::resource("curso","CursoController");
-
 Route::get("curso_miaccion/{parametro}","CursoController@miaccion");

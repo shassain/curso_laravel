@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>
+@extends('layouts.layout_principal')
+@section('content')
+<h1>
         Crear Nuevo Curso
     </h1>
     <form action="{{route('curso.store')}}" method="post">
@@ -17,5 +11,4 @@
         <input type="text" name="valor">
         <button type="submit">Enviar informacion</button>
     </form>
-</body>
-</html>
+@endsection
