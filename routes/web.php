@@ -32,3 +32,5 @@ Route::get("usuario","userController@myfuncion")->name("user.myfuncion");
 
 Route::resource("curso","CursoController");
 Route::get("curso_miaccion/{parametro}","CursoController@miaccion");
+
+Route::get("prueba-orm","PruebaOrmController@index");
