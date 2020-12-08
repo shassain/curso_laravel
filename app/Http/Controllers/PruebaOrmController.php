@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\User;
+use App\Models\Participante;
 class PruebaOrmController extends Controller
 {
     public function index(){
@@ -55,5 +56,23 @@ class PruebaOrmController extends Controller
         $cursos_beetwen=Curso::whereBetween("fecha_inicial",["2020-12-08","2020-12-10"])->get();
         $curso_firt=$cursos->first();
         dd($curso_firt);
+    }
+    public function testOrm(){
+        $user=User::with(["cursos"=>function($query){
+            $query->where("tipo","publico")->where("precio",">=",20);
+        }])->findOrFail(11);//with == con
+        /* foreach($user->cursos as $curso){
+
+            dump($user->name,$curso->name);
+        } */
+        //---
+        $cursos=Curso::with("creador")->get();
+        
+        foreach($cursos as $curso){
+           // echo $curso->name.", pertenece a:".$curso->creador->name."<br/>";
+        }
+        $cursos_inscritos=Curso::with("participantes","creador.cursos")->get();
+        $participantes_cursos=Participante::with("cursos")->get();
+        dd($cursos_inscritos);
     }
 }

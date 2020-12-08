@@ -34,3 +34,4 @@ Route::resource("curso","CursoController");
 Route::get("curso_miaccion/{parametro}","CursoController@miaccion");
 
 Route::get("prueba-orm","PruebaOrmController@index");
+Route::get("test-orm","PruebaOrmController@testOrm");

@@ -25,7 +25,7 @@ class CreateParticipantesTable extends Migration
         Schema::create('inscripcions', function(Blueprint $table){
             $table->bigInteger("participante_id");
             $table->bigInteger("curso_id");
-            $table->date("fecha_de_incripcion");
+            $table->date("fecha_de_inscripcion");
             $table->foreign("participante_id")->references("id")->on("participantes");
             $table->foreign("curso_id")->references("id")->on("cursos");
         });
