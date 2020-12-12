@@ -183,8 +183,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
+                            <a href="{{route('usuario.index')}}">
+                                <i class="fas fa-chart-bar"></i>Usuarios</a>
                         </li>
                         
                     </ul>
