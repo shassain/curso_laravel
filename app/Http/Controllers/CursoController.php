@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Curso;
+use App\Models\User;
 
 class CursoController extends Controller
 {
@@ -11,10 +13,25 @@ class CursoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //redirige hacia el index Curso, generalmente se listan los items de curso
-        return view('curso.index');
+        $cursos=Curso::with('creador')->where("activo",true);//QueryBuilder
+        if($request->has("precio_inicial") && $request->precio_inicial != ""){
+            $cursos=$cursos->where("precio",">=",$request->precio_inicial);
+        }
+        if($request->has("precio_final") && $request->precio_final != ""){
+            $cursos=$cursos->where("precio","<=",$request->precio_final);
+        }
+        if($request->has("tipo") && $request->tipo != "all"){
+            $cursos=$cursos->where("tipo",$request->tipo);
+        }
+        if($request->has("user_id") && $request->user_id != "all"){
+            $cursos=$cursos->where("user_id",$request->user_id);
+        }
+        $cursos=$cursos->get();
+        $usuarios=User::get();
+        return view('curso.index',compact('cursos','usuarios'));
     }
 
     /**
@@ -25,7 +42,8 @@ class CursoController extends Controller
     public function create()
     {
         //obtenemos la informacion necesaria para crear un curso y redirigimos.
-        return view("curso.create");
+        $usuarios=User::get();
+        return view("curso.create",compact("usuarios"));
     }
 
     /**
@@ -36,11 +54,15 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
+        $curso=new Curso($request->all());
+        $curso->activo=true;
+        $curso->cantidad_participantes=0;
+        $curso->save();
         //para crear un curso
         //dd($request->all());
         //almacenar lo que tiene request
         //->save()
-        return redirect()->route("curso.index");
+        return redirect()->route("curso.index")->with(["msn"=>"Curso Creado Exitosamente"]);
     }
 
     /**
@@ -52,10 +74,7 @@ class CursoController extends Controller
     public function show($id)
     {
         //buscar el curso y mostrar su informacion.
-        $curso=[
-            "name"=>"laravel",
-            "valor"=>100
-        ];
+        $curso=Curso::with("creador","participantes")->findOrFail($id);
         return view("curso.show",compact("curso"));
     }
 
@@ -67,12 +86,10 @@ class CursoController extends Controller
      */
     public function edit($id)
     {
+        $curso=Curso::findOrFail($id);
+        $usuarios=User::get();
         //buscar al curso, y lo enviamos a otro formulario para su edicion
-        $curso=[
-            "name"=>"laravel",
-            "valor"=>100
-        ];
-        return view("curso.edit",compact("curso"));
+        return view("curso.edit",compact("curso","usuarios"));
     }
 
     /**
@@ -84,10 +101,14 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+        $curso=Curso::findOrFail($id);
+        $curso->fill($request->all());
+        $curso->save();
         //guardar la actualizacion
         //dd($request->all(),$id);
         //->save();
-        return redirect()->route("curso.index");
+        return redirect()->route("curso.index")->with(["msn"=>"Curso Editado correctamente"]);
     }
 
     /**
@@ -98,10 +119,12 @@ class CursoController extends Controller
      */
     public function destroy($id)
     {
+        $curso=Curso::findOrFail($id);
+        $curso->activo=!$curso->activo;
+        $curso->save();
         //eliminar un curso.
         //->delete()
-        $message="Dato eliminado";
-        return $message;
+        return redirect()->back();
         //return redirect()->route("curso.index",compact("message"));
     }
 
