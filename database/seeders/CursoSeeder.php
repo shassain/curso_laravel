@@ -16,7 +16,7 @@ class CursoSeeder extends Seeder
         $user=\App\Models\User::create([
             "name"=>"admin",
             "email"=>"admin@admin.com",
-            "password"=>"nofndosiiods3"
+            "password"=>bcrypt("admin")
         ]);
         \App\Models\Curso::create([
             "name"=>"Laravel",

@@ -15,6 +15,7 @@ class CursoController extends Controller
      */
     public function index(Request $request)
     {
+        
         //redirige hacia el index Curso, generalmente se listan los items de curso
         $cursos=Curso::with('creador')->where("activo",true);//QueryBuilder
         if($request->has("precio_inicial") && $request->precio_inicial != ""){
@@ -54,7 +55,11 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
+        
         $curso=new Curso($request->all());
+        if(\Auth::check()){
+            $curso->user_id=\Auth::user()->id;
+        }
         $curso->activo=true;
         $curso->cantidad_participantes=0;
         $curso->save();

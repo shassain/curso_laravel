@@ -21,7 +21,7 @@
             
         
         
-
+                @if(!Auth::check())
                 <div class="form-group">
                     <div class="input-group">
                         <select name="user_id" id="user_id" class="form-control">
@@ -35,6 +35,16 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" value="{{Auth::user()->name}}, {{Auth::user()->email}}" disabled class="form-control">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <div class="form-group">
                     <div class="input-group">
                         <select name="tipo" id="tipo" class="form-control">
@@ -67,7 +77,7 @@
                         Fecha Inicial
                     </div>
                     <div class="input-group">
-                        <input type="date" name="fecha_inicial" id="fecha_inicial" class="form-control" placeholder="Escriba la fecha inicial">
+                        <input type="date" name="fecha_inicial" id="fecha_inicial" class="form-control" placeholder="Escriba la fecha inicial" value="{{now()->toDateString()}}">
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
