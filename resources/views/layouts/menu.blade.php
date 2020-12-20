@@ -33,6 +33,14 @@
                   <a href="{{route('curso.index')}}">
                       <i class="fas fa-home"></i>Curso</a>
               </li>
+              <li>
+                  <a href="{{route('participante.index')}}">
+                      <i class="fas fa-users"></i>Participantes</a>
+              </li>
+              <li>
+                  <a href="{{route('incripcion.index')}}">
+                      <i class="fas fa-users"></i>Inscripciones</a>
+              </li>
           </ul>
       </nav>
   </div>

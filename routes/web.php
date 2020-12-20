@@ -46,5 +46,12 @@ Route::group(["middleware"=>"auth"],function(){
     });
     Route::resource("usuario","UsuarioController");    
     Route::resource("curso","CursoController");
+    Route::resource("participante","ParticipanteController");
+    Route::get("download-image/{nombre}","ParticipanteController@getImage")->name("participante.image");
+    Route::get("incripcion","IncripcionController@index")->name("incripcion.index");
+    Route::get("inscripcion-create/{id}","IncripcionController@create")->name("inscripcion.create");
+    Route::post("inscripcion-store/{id}","IncripcionController@store")->name("inscripcion.store");
+    Route::get("inscripcion-pdf/{curso}/{participante}","IncripcionController@getPdf")->name("inscripcion.pdf");
+    
 });
 

@@ -20,6 +20,7 @@ class CreateParticipantesTable extends Migration
             $table->string("apmaterno",30);
             $table->date("fecha_nacimiento");
             $table->string("ci",15);
+            $table->string("foto");
             $table->timestamps();
         });
         Schema::create('inscripcions', function(Blueprint $table){

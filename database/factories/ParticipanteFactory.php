@@ -26,7 +26,8 @@ class ParticipanteFactory extends Factory
             "appaterno"=>$this->faker->lastName,
             "apmaterno"=>$this->faker->lastName,
             "fecha_nacimiento"=>now()->subYear(rand(15,25)),
-            "ci"=>"84737393"
+            "ci"=>"84737393",
+            "foto"=>"participante.png"
         ];
     }
 }
